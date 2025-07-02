@@ -21,6 +21,7 @@
     "express-session": "^1.18.1",
     "express-validator": "^7.2.1",
     "fs": "^0.0.1-security",
+    "multer": "^2.0.1",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
     "pg": "^8.16.2"
