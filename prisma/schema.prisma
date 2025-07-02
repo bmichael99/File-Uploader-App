@@ -34,15 +34,17 @@ model Folder {
 }
 
 model File {
-  id          Int      @id @default(autoincrement())
-  name        String
-  size        Int      //in bytes
-  url         String
-  folder      Folder?  @relation(fields: [folderId], references: [id], onDelete: Cascade)
-  folderId    Int?
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId      Int
-  uploadedAt  DateTime @default(now())
+  id           Int      @id @default(autoincrement())
+  name         String
+  originalName String
+  mimeType     String
+  size         Int      //in bytes
+  url          String
+  folder       Folder?  @relation(fields: [folderId], references: [id], onDelete: Cascade)
+  folderId     Int?
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId       Int
+  uploadedAt   DateTime @default(now())
 }
 
 model Session {
