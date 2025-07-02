@@ -12,6 +12,17 @@
   <% if (locals.user) {%>
     <h1>WELCOME BACK <%= user.username %></h1>
     <a href="/log-out">LOG OUT</a>
+
+    <form action="/stats" enctype="multipart/form-data" method="post">
+    <div class="form-group">
+      <input type="file" class="form-control-file" name="uploaded_file">
+      <input type="submit" value="Upload">
+    </div>
+  </form>
+  <a href="/create-folder">Create folder</a>
+
+  <%- include('displayFolders') %>
+  <%- include('displayFiles') %>
   <% } else { %>
   <h2>please log in or sign up</h2>
   <form action="/log-in" method="POST">
@@ -21,6 +32,7 @@
     <input id="password" name="password" type="password" />
     <button type="submit">Log In</button>
   </form>
+
   <a href="/sign-up">sign up</a>
   <%}%>
 
