@@ -1,0 +1,16 @@
+
+<% if (locals.files) {%>
+<h1>Files</h1>
+<div class="list-files">
+<% locals.files.forEach(file => { %>
+  
+ <p class="file">
+  <%- file.icon %>
+  <%= file.originalName %>
+  <form action="/delete-file/<%= file.id %>" method="POST">
+  <button type="submit">Delete</button>
+  </form>
+</p>
+<% }) %>
+</div>
+<% } %>
