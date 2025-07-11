@@ -3,6 +3,10 @@ const db = require("../db/queries")
 const passport = require("passport");
 const bcrypt = require("bcryptjs")
 const { isAuth } = require("../controllers/authMiddleware");
+const { createClient } = require('@supabase/supabase-js');
+const fs = require("fs").promises;
+const f = require("fs");
+const supabase = require("../services/supabaseService");
 require('dotenv').config()
 
 const mimeTypeIcons = {
@@ -64,6 +68,10 @@ exports.showSignUp = (req,res) => {
   res.render('sign-up-form');
 };
 
+exports.showLogIn = (req,res) => {
+  res.render('logIn');
+};
+
 exports.SignUpPost = async (req,res, next) => {
   try{
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
@@ -91,14 +99,80 @@ exports.LogOutGet = (req,res,next) => {
   });
 };
 
-exports.uploadPost = (req,res,next) => {
+exports.uploadPost = async (req,res,next) => {
     // req.file is the name of your file in the form above, here 'uploaded_file'
     // req.body will hold the text fields, if there were any
-  //console.log("req.file: ", req.file);
-  //console.log("req.body: ", req.body);
-  db.createFile(req.file.filename,req.file.originalname,req.file.mimetype,req.file.size,req.file.path,req.user.id);
-  res.redirect("/");
+
+  const fileBuffer = await fs.readFile(req.file.path);
+  const {path, data, error} = await supabase.uploadFile("uploads",req.user.id,fileBuffer,req.file);
+  if(error){
+    res.status(500).json({
+      sucess:false,
+      error: error.message,
+    })
+  } else {
+    if(req.params.folderId){
+      const folderId = Number(req.params.folderId);
+      console.log("YOOOOOOOOOOOO WE GOT A FOLDER ID YOOO");
+      await db.createFileInFolder(req.file.filename,req.file.originalname,req.file.mimetype,req.file.size,path,folderId,req.user.id)
+      res.redirect(`/folder/${folderId}`);
+    } else {
+      await db.createFile(req.file.filename,req.file.originalname,req.file.mimetype,req.file.size,path,req.user.id);
+      res.redirect("/");
+    }
+  }
+
+  await fs.unlink(req.file.path);
 };
+
+exports.downloadFile = async (req,res) => {
+  const file = await db.getFilebyFileId(req.params.fileId);
+
+  if(file.userId === req.user.id){
+    const {data, error} = await supabase.downloadFile("uploads",file.url);
+
+    if(error){
+      res.status(500).json({
+        sucess:false,
+        error: error.message,
+      })
+    } else {
+      const arrayBuffer = await data.arrayBuffer();
+      const buffer = Buffer.from(arrayBuffer);
+      res.setHeader('Content-Disposition', `attachment; filename="${file.url.split('/')[1]}"`);
+      res.setHeader("Content-Type", "application/octet-stream");
+      res.setHeader("Content-Length", buffer.length);
+      return res.end(buffer) //stream the file to the client
+    }
+  } else{
+    res.status(401).json({
+      sucess: false,
+      message: "unauthorized",
+    })
+  }
+  
+};
+
+exports.getFolder = async (req,res) => {
+  const folder = await db.getFolderbyFolderId(req.params.folderId);
+
+  if(!folder || folder.userId !== req.user.id){
+    return res.redirect("/"); //unauthorized or folder doesn't exist
+  }
+
+  const files = await db.getFilesByFolder(req.params.folderId,req.user.id);
+  res.locals.folder = folder;
+
+  if(files.length > 0){
+    const filesWithIcons = files.map(file => ({
+        ...file,
+        icon: mimeTypeIcons[file.mimeType] || mimeTypeIcons["default"]
+      }))
+    res.locals.files = filesWithIcons;
+  }
+
+  res.render("insideFolder");
+}
 
 exports.getUserFiles = (req,res) => {
   const files = db.getFilesByUser(req.user.id);
@@ -125,12 +199,20 @@ exports.deleteFile = async (req,res) => {
   const file = await db.getFilebyFileId(req.params.fileId);
 
   if(file.userId === req.user.id){
-    await db.deleteFileById(req.params.fileId);
+    const {data, error} = await supabase.deleteFile("uploads", file.url);
+    if(error){
+      console.error(error);
+    } else{
+      await db.deleteFileById(req.params.fileId);
+    }
   }else{
     res.sendStatus(401);
   }
-
-  res.redirect("/");
+    if(req.params.folderId){
+      res.redirect(`/folder/${req.params.folderId}`);
+    } else {
+      res.redirect("/");
+    }
 }
 
 exports.deleteFolder = async (req,res) => {
@@ -143,4 +225,7 @@ exports.deleteFolder = async (req,res) => {
   }
 
   res.redirect("/");
+}
+exports.showFileDashboard = async (req,res) => {
+  res.render("fileDashboard");
 }
