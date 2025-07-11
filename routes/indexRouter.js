@@ -8,17 +8,24 @@ const upload = multer({ dest: './public/data/uploads/' })
 
 indexRouter.get("/", indexController.showHomePage);
 indexRouter.get("/sign-up", indexController.showSignUp);
+indexRouter.get("/log-in", indexController.showLogIn);
 indexRouter.post("/sign-up", indexController.SignUpPost);
 indexRouter.post("/log-in", indexController.LogInPost);
 indexRouter.get("/log-out", indexController.LogOutGet);
+indexRouter.get("/files", indexController.showFileDashboard);
 
-indexRouter.get("/create-folder", indexController.CreateFolderGet);
-indexRouter.post("/create-folder", indexController.CreateFolderPost);
 
-indexRouter.post("/stats", upload.single('uploaded_file'), indexController.uploadPost);
 
+indexRouter.post("/upload-file", upload.single('uploaded_file'), indexController.uploadPost);
+indexRouter.post("/upload-file/:folderId", upload.single('uploaded_file'), indexController.uploadPost);
+indexRouter.get("/download-file/:fileId", isAuth, indexController.downloadFile);
 indexRouter.post("/delete-file/:fileId", isAuth, indexController.deleteFile);
+indexRouter.post("/delete-file/:fileId/:folderId", isAuth, indexController.deleteFile);
+
+indexRouter.get("/create-folder", isAuth, indexController.CreateFolderGet);
+indexRouter.post("/create-folder", isAuth, indexController.CreateFolderPost);
 indexRouter.post("/delete-folder/:folderId", isAuth, indexController.deleteFolder);
+indexRouter.get("/folder/:folderId", isAuth, indexController.getFolder);
 
 
 module.exports = indexRouter;
