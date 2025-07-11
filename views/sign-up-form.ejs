@@ -2,18 +2,57 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Sign Up</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-  <h1>Sign Up</h1>
-  <form action="/sign-up" method="POST">
-    <label for="first_name">First Name</label>
-    <input id="first_name" name="first_name" placeholder="First Name" type="text" />
-    <label for="username">Username</label>
-    <input id="username" name="username" placeholder="username" type="text" />
-    <label for="password">Password</label>
-    <input id="password" name="password" type="password" />
-    <button type="submit">Sign Up</button>
-  </form>
+  <div class="root-container">
+    <%- include('partials/navbar') %>
+
+    <main class = "login-container">
+
+      <div class = "login-box">
+          <h3>Sign Up</h3>
+        
+
+        
+          <form class = "login-form" action="/sign-up" method="POST">
+            <div class = "form-group">
+            <label for="first_name">First Name</label>
+            <input id="first_name" name="first_name" placeholder="First Name" type="text" />
+            </div>
+            <div class = "form-group">
+            <label for="username">Username</label>
+            <input id="username" name="username" placeholder="Username" type="text" />
+            </div>
+            <div class = "form-group">
+            <label for="password">Password</label>
+            <input id="password" name="password" placeholder="Password"type="password" />
+            </div>
+            <div class = "form-group">
+            <button type="submit">Sign Up</button>
+            
+            </div>
+          </form>
+        
+        <div class = "form-spacer">
+        <hr>
+        <p> OR </p>
+        <hr>
+        </div>
+        
+        <p class="login-signup-title">Have an Account?</p>
+        <button onclick="window.location.href='/log-in'">Log In</button>
+
+      </div>
+
+
+
+    </main>
+
+    <%- include('partials/footer') %>
+
+  </div>
 </body>
 </html>
