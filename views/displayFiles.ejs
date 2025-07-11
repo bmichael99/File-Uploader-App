@@ -1,4 +1,3 @@
-
 <% if (locals.files) {%>
 <h1>Files</h1>
 <div class="list-files">
@@ -7,10 +6,18 @@
  <p class="file">
   <%- file.icon %>
   <%= file.originalName %>
-  <form action="/delete-file/<%= file.id %>" method="POST">
+  <form action="/download-file/<%= file.id %>" method="GET">
+  <button type="submit">Download</button>
+  </form>
+  <form action="/delete-file/<%= file.id %><%if(locals.folder){%>/<%=locals.folder.id%><%}%> " method="POST">
   <button type="submit">Delete</button>
   </form>
+  
 </p>
 <% }) %>
 </div>
-<% } %>
+<% }else{%>
+
+  <p>No files to display</p>
+
+  <% } %>
