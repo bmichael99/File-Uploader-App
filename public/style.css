@@ -1,3 +1,18 @@
+:root{
+  --primary-color: #1E1E1E;
+  --secondary-color: #121212;
+  --highlight-color: #7289da;
+  --highlight2-color: #BB86FC;
+  --hover-color: #242428;
+  --primary-text-color: #F8F9FA;
+  --muted-text-color:#4a4c51;
+  --primary-font: gg-sans, sans-serif;
+  --bold-font: gg-sans-bold, sans-serif;
+  --semibold-font: gg-sans-semibold, sans-serif;
+  --medium-font: gg-sans-medium, sans-serif;
+  --border-color: #495057;
+}
+
 .file svg, .folder svg{
   width:25px;
   height:25px;
@@ -7,4 +22,191 @@
   display:flex;
   align-items: center;
   gap:8px;
+}
+
+.folder-header svg{
+  width:25px;
+  height:25px;
+}
+
+.folder-header {
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  gap:16px;
+}
+
+a{
+  text-decoration: none;
+  color:black;
+}
+
+body{
+  margin:0;
+  padding:0;
+}
+
+.root-container{
+  min-height:100dvh;
+  display:grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+p{
+  margin:0;
+  padding:0;
+}
+
+li{
+  list-style-type: none;
+}
+
+/* --------------------------------*/
+/* ------------ NAVBAR ------------*/
+/* --------------------------------*/
+
+.navbar-wrapper{
+  border-bottom: solid 1px var(--border-color);
+  display:flex;
+  justify-content: center;
+  width:100%;
+}
+
+.navbar-container{
+  max-width:1200px;
+  display:flex;
+  flex:1;
+  justify-content: space-between;
+  align-items: center;
+  margin-left:16px;
+  margin-right:16px;
+}
+
+.navbar-links{
+  display: flex;
+  gap:16px;
+}
+
+.nav-logo a{
+  color: black;
+  font-size:1.5rem;
+  font-style: italic;
+  font-weight: bold;
+  font-family: sans-serif;
+  display:flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.nav-logo svg{
+  width:1.5rem;
+  height:1.5rem;
+}
+
+
+/* --------------------------------*/
+/* ------------ LOG IN ------------*/
+/* --------------------------------*/
+
+.login-container{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.login-box{
+  min-width:350px;
+  border: solid 1px black;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  padding:24px 48px;
+}
+
+.login-box h3{
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.login-form{
+  width:100%;
+}
+
+.form-group{
+  display:flex;
+  flex-direction: column;
+  align-self: center;
+  margin-bottom:16px;
+}
+
+.form-group input{
+  padding:6px;
+  
+}
+
+.form-group button, .login-box button{
+  height:32px;
+  margin-bottom: 16px;
+  
+}
+
+.login-box button{
+  width:100%;
+}
+
+.login-signup-title{
+  font-size: 0.9rem;
+  color: var(--muted-text-color);
+  font-family: sans-serif;
+  margin-top:24px;
+}
+
+hr{
+  width:100%;
+}
+
+.form-spacer{
+  display:flex;
+  width:100%;
+  gap:2px;
+  color: var(--muted-text-color);
+}
+
+.form-spacer hr{
+  border-width:0;
+  height: 0.001em;
+  border: 0.001em solid var(--muted-text-color);
+}
+
+button{
+  cursor: pointer;
+}
+
+
+/* ---------------------------------------*/
+/* ------------ MEDIA QUERIES ------------*/
+/* ---------------------------------------*/
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --text: hsl(243, 76%, 5%);
+    --background: hsl(240, 60%, 99%);
+    --primary: hsl(243, 68%, 48%);
+    --secondary: hsl(243, 100%, 93%);
+    --accent: hsl(242, 100%, 62%);
+  }
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --text: hsl(243, 76%, 95%);
+    --background: hsl(240, 60%, 1%);
+    --primary: hsl(243, 68%, 52%);
+    --secondary: hsl(243, 100%, 7%);
+    --accent: hsl(242, 100%, 38%);
+    --theme-name: "dark";
+  }
 }
