@@ -26,7 +26,7 @@ async function getUserById(id){
   return user;
 }
 
-async function createFileInFolder(name,size,url,folderId,userId){
+async function createFileInFolder(name,originalName,mimeType,size,url,folderId,userId){
   return await prisma.file.create({
     data: {name, originalName, mimeType, size, url, folderId, userId}
   });
@@ -85,7 +85,7 @@ async function getFilebyFileId(fileId){
 
 async function getFilesByFolder(folderId,userId){
   const files = await prisma.file.findMany({
-    where: {folderId, userId}
+    where: {folderId: Number(folderId), userId}
   });
 
   return files;
