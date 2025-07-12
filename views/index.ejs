@@ -16,16 +16,14 @@
 
   
     <h1><%= title %></h1>
-
+    <!--
     <% if (locals.user) {%>
       <h1>WELCOME BACK <%= user.username %></h1>
       <a href="/log-out">LOG OUT</a>
 
       <form action="/upload-file" enctype="multipart/form-data" method="post">
-        <div class="form-group">
           <input type="file" class="form-control-file" name="uploaded_file">
           <input type="submit" value="Upload">
-        </div>
       </form>
     <a href="/create-folder">Create folder</a>
 
@@ -43,6 +41,7 @@
 
     <a href="/sign-up">sign up</a>
     <%}%>
+  -->
   </main>
 
   <%- include('partials/footer') %>
