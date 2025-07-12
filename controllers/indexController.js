@@ -34,9 +34,12 @@ const mimeTypeIcons = {
   "application/zip": `<svg viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g id="layer1"> <path d="M 3 0 L 3 20 L 17 20 L 17 5 L 17 4 L 13 0 L 12 0 L 10 0 L 10 1 L 12 1 L 12 4 L 12 5 L 16 5 L 16 19 L 4 19 L 4 1 L 6 1 L 6 0 L 3 0 z M 8 0 L 8 1 L 9 1 L 9 0 L 8 0 z M 8 1 L 7 1 L 7 2 L 8 2 L 8 1 z M 8 2 L 8 3 L 9 3 L 9 2 L 8 2 z M 8 3 L 7 3 L 7 4 L 8 4 L 8 3 z M 8 4 L 8 5 L 9 5 L 9 4 L 8 4 z M 8 5 L 7 5 L 7 6 L 8 6 L 8 5 z M 8 6 L 8 7 L 9 7 L 9 6 L 8 6 z M 8 7 L 7 7 L 7 8 L 8 8 L 8 7 z M 8 8 L 8 9 L 9 9 L 9 8 L 8 8 z M 8 9 L 7 9 L 7 10 L 8 10 L 8 9 z M 13 1.3535156 L 15.646484 4 L 13 4 L 13 1.3535156 z M 7 11 L 6 15 L 6 18 L 10 18 L 10 15 L 9 11 L 7 11 z M 7 16 L 9 16 L 9 17 L 7 17 L 7 16 z " style="fill:#222222; fill-opacity:1; stroke:none; stroke-width:0px;"></path> </g> </g></svg>`,
   "application/x-7z-compressed": `<svg viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g id="layer1"> <path d="M 3 0 L 3 20 L 17 20 L 17 5 L 17 4 L 13 0 L 12 0 L 10 0 L 10 1 L 12 1 L 12 4 L 12 5 L 16 5 L 16 19 L 4 19 L 4 1 L 6 1 L 6 0 L 3 0 z M 8 0 L 8 1 L 9 1 L 9 0 L 8 0 z M 8 1 L 7 1 L 7 2 L 8 2 L 8 1 z M 8 2 L 8 3 L 9 3 L 9 2 L 8 2 z M 8 3 L 7 3 L 7 4 L 8 4 L 8 3 z M 8 4 L 8 5 L 9 5 L 9 4 L 8 4 z M 8 5 L 7 5 L 7 6 L 8 6 L 8 5 z M 8 6 L 8 7 L 9 7 L 9 6 L 8 6 z M 8 7 L 7 7 L 7 8 L 8 8 L 8 7 z M 8 8 L 8 9 L 9 9 L 9 8 L 8 8 z M 8 9 L 7 9 L 7 10 L 8 10 L 8 9 z M 13 1.3535156 L 15.646484 4 L 13 4 L 13 1.3535156 z M 7 11 L 6 15 L 6 18 L 10 18 L 10 15 L 9 11 L 7 11 z M 7 16 L 9 16 L 9 17 L 7 17 L 7 16 z " style="fill:#222222; fill-opacity:1; stroke:none; stroke-width:0px;"></path> </g> </g></svg>`,
   "application/vnd.rar": `<svg viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g id="layer1"> <path d="M 3 0 L 3 20 L 17 20 L 17 5 L 17 4 L 13 0 L 12 0 L 10 0 L 10 1 L 12 1 L 12 4 L 12 5 L 16 5 L 16 19 L 4 19 L 4 1 L 6 1 L 6 0 L 3 0 z M 8 0 L 8 1 L 9 1 L 9 0 L 8 0 z M 8 1 L 7 1 L 7 2 L 8 2 L 8 1 z M 8 2 L 8 3 L 9 3 L 9 2 L 8 2 z M 8 3 L 7 3 L 7 4 L 8 4 L 8 3 z M 8 4 L 8 5 L 9 5 L 9 4 L 8 4 z M 8 5 L 7 5 L 7 6 L 8 6 L 8 5 z M 8 6 L 8 7 L 9 7 L 9 6 L 8 6 z M 8 7 L 7 7 L 7 8 L 8 8 L 8 7 z M 8 8 L 8 9 L 9 9 L 9 8 L 8 8 z M 8 9 L 7 9 L 7 10 L 8 10 L 8 9 z M 13 1.3535156 L 15.646484 4 L 13 4 L 13 1.3535156 z M 7 11 L 6 15 L 6 18 L 10 18 L 10 15 L 9 11 L 7 11 z M 7 16 L 9 16 L 9 17 L 7 17 L 7 16 z " style="fill:#222222; fill-opacity:1; stroke:none; stroke-width:0px;"></path> </g> </g></svg>`,
-
+  //folder image
+  "folder" : `<svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M0 1H6L9 4H16V14H0V1Z" fill="#000000"></path> </g></svg>`,
   //default file image
-  "default" : `<svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M7 0H2V16H14V7H7V0Z" fill="#000000"></path> <path d="M9 0V5H14L9 0Z" fill="#000000"></path> </g></svg>`
+  "default" : `<svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M7 0H2V16H14V7H7V0Z" fill="#000000"></path> <path d="M9 0V5H14L9 0Z" fill="#000000"></path> </g></svg>`,
+
+  
 };
 
 exports.showHomePage = async (req,res) => {
@@ -61,7 +64,7 @@ exports.showHomePage = async (req,res) => {
       res.locals.folders = folders;
   }
 
-  res.render('index', {title: 'Express Template!'});
+  res.render('index', {title: 'Uploadify'});
 };
 
 exports.showSignUp = (req,res) => {
@@ -118,7 +121,7 @@ exports.uploadPost = async (req,res,next) => {
       res.redirect(`/folder/${folderId}`);
     } else {
       await db.createFile(req.file.filename,req.file.originalname,req.file.mimetype,req.file.size,path,req.user.id);
-      res.redirect("/");
+      res.redirect("/files");
     }
   }
 
@@ -227,5 +230,40 @@ exports.deleteFolder = async (req,res) => {
   res.redirect("/");
 }
 exports.showFileDashboard = async (req,res) => {
-  res.render("fileDashboard");
+
+  const files = await db.getFilesByUser(req.user.id);
+
+    if(files.length > 0){
+      const filesWithIcons = files.map(file => ({
+        ...file,
+        icon: mimeTypeIcons[file.mimeType] || mimeTypeIcons["default"],
+        uploadedAt: file.uploadedAt.toLocaleString('en-US', {
+          dateStyle: 'medium',
+          timeStyle: 'short'
+        }),
+      }))
+      res.locals.files = filesWithIcons;
+    }
+      
+    //Get Folders
+    const folders = await db.getFoldersByUser(req.user.id);
+
+    if(folders.length > 0){
+      
+      const foldersWithFormattedTime = folders.map(folder => {
+
+        const newTime = folder.createdAt.toLocaleString('en-US', {
+          dateStyle: 'medium',
+          timeStyle: 'short'
+        });
+
+        return {...folder, createdAt: newTime, icon: mimeTypeIcons["folder"]};
+      })
+
+      res.locals.folders = foldersWithFormattedTime;
+    }
+      
+
+
+  res.render("fileDashboard", {title: "File Dashboard"});
 }
