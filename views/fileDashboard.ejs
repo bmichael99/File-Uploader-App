@@ -3,9 +3,57 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>File Dashboard</title>
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-  
+<div class="root-container">
+  <%- include('partials/navbar') %>
+  <main>
+    <div class="file-dashboard-header">
+      <form id="uploadForm" action="/upload-file" enctype="multipart/form-data" method="post">
+          <input type="file" class="form-control-file" name="uploaded_file" id="realFileInput" 
+          onchange="document.getElementById('uploadForm').submit();">
+          <button type="button" onclick="document.getElementById('realFileInput').click();"
+           >Upload File</button>
+      </form>
+      <button>Create Folder</button>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Date Modified</th>
+          <th scope="col">File Size</th>
+          <th scope="col">File Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (locals.folders) { %> 
+        <% locals.folders.forEach(folder => { %>
+          <tr onclick="window.location.href = '/folder/<%=folder.id%>'">
+            <th scope = "row" class="table-row-name"><%-folder.icon%> <%= folder.name %></th>
+            <td><%= folder.createdAt %></td>
+            <td>-</td>
+            <td>Folder</td>
+          </tr>
+        <% }) %>
+        <%}%>
+        <% if (locals.files) { %> 
+        <% locals.files.forEach(file => { %>
+          <tr>
+            <th scope = "row" class="table-row-name"><%-file.icon%> <%= file.originalName %></th>
+            <td><%= file.uploadedAt %></td>
+            <td><%= file.size %></td>
+            <td><%= file.mimeType %></td>
+          </tr>
+        <% }) %>
+        <%}%>
+      </tbody>
+    </table>
+  </main>
+  <%- include('partials/footer') %>
+</div>
 </body>
 </html>
