@@ -7,21 +7,58 @@
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-  
-  <h2 class = "folder-header">
-    <svg fill="#000000" viewBox="0 0 256 256" id="Flat" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M228,56H160L133.333,36a20.12292,20.12292,0,0,0-12-4H76A20.0226,20.0226,0,0,0,56,52V72H36A20.0226,20.0226,0,0,0,16,92V204a20.0226,20.0226,0,0,0,20,20H188.88867A19.13289,19.13289,0,0,0,208,204.88867V184h20.88867A19.13289,19.13289,0,0,0,248,164.88867V76A20.0226,20.0226,0,0,0,228,56ZM184,200H40V96H80l26.667,20a20.12292,20.12292,0,0,0,12,4H184Zm40-40H208V116a20.0226,20.0226,0,0,0-20-20H120L93.333,76a20.12292,20.12292,0,0,0-12-4H80V56h40l26.667,20a20.12292,20.12292,0,0,0,12,4H224Z"></path> </g></svg>
-    <%=locals.folder.name%></h2>
-  <button><a href="/">Back to main</a></button>
+<div class="root-container">
+  <%- include('partials/navbar') %>
 
-  <form action="/upload-file/<%=locals.folder.id%>" enctype="multipart/form-data" method="post">
-      <div class="form-group">
-        <input type="file" class="form-control-file" name="uploaded_file">
-        <input type="submit" value="Upload">
+  <main>
+    <div class="folder-view-header">
+      <div>
+        <a href="/files"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M5 12H19M5 12L11 6M5 12L11 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+          Return</a>
       </div>
-    </form>
 
-  
+      <div>
+        <p class = "folder-header">
+        <svg fill="#000000" viewBox="0 0 256 256" id="Flat" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M228,56H160L133.333,36a20.12292,20.12292,0,0,0-12-4H76A20.0226,20.0226,0,0,0,56,52V72H36A20.0226,20.0226,0,0,0,16,92V204a20.0226,20.0226,0,0,0,20,20H188.88867A19.13289,19.13289,0,0,0,208,204.88867V184h20.88867A19.13289,19.13289,0,0,0,248,164.88867V76A20.0226,20.0226,0,0,0,228,56ZM184,200H40V96H80l26.667,20a20.12292,20.12292,0,0,0,12,4H184Zm40-40H208V116a20.0226,20.0226,0,0,0-20-20H120L93.333,76a20.12292,20.12292,0,0,0-12-4H80V56h40l26.667,20a20.12292,20.12292,0,0,0,12,4H224Z"></path> </g></svg>
+        <%=locals.folder.name%></p>
+      </div>
 
-  <%- include('displayFiles') %>
+      <div class="file-dashboard-header-buttons">
+        <form id="uploadForm" action="/upload-file/<%=locals.folder.id%>" enctype="multipart/form-data" method="post">
+            <input type="file" class="form-control-file" name="uploaded_file" id="realFileInput" 
+            onchange="document.getElementById('uploadForm').submit();">
+            <button type="button" onclick="document.getElementById('realFileInput').click();"
+            >Upload File</button>
+        </form>
+      </div>
+
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Date Modified</th>
+          <th scope="col">File Size</th>
+          <th scope="col">File Type</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (locals.files) { %> 
+        <% locals.files.forEach(file => { %>
+          <tr>
+            <th scope = "row" class="table-row-name"><%-file.icon%> <%= file.originalName %></th>
+            <td><%= file.uploadedAt %></td>
+            <td><%= file.size %></td>
+            <td><%= file.mimeType %></td>
+          </tr>
+        <% }) %>
+        <%}%>
+      </tbody>
+    </table>
+  </main>
+
+  <%- include('partials/footer') %>
+</div>
 </body>
 </html>
