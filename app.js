@@ -32,6 +32,7 @@ app.use(express.static(assetsPath));
 app.use(express.urlencoded({ extended: true }));
 
 
+
 /**
  *  -------------------- PASSPORT SETUP --------------------
  */
@@ -106,6 +107,12 @@ passport.deserializeUser(async (id, done) => {
     done(err);
   }
 });
+
+//middleware for providing user data to all authenticated EJS files
+app.use((req,res,next) => {
+  res.locals.user = req.isAuthenticated ? (req.isAuthenticated() ? req.user : null) : null;
+  next();
+})
 
 /**
  *  -------------------- ROUTER AND SERVER --------------------
