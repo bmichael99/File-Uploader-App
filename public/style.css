@@ -1,7 +1,7 @@
 :root{
   --primary-color: #1E1E1E;
   --secondary-color: #121212;
-  --highlight-color: #7289da;
+  --highlight-color: #3882F6;
   --highlight2-color: #BB86FC;
   --hover-color: #242428;
   --primary-text-color: #F8F9FA;
@@ -11,6 +11,7 @@
   --semibold-font: gg-sans-semibold, sans-serif;
   --medium-font: gg-sans-medium, sans-serif;
   --border-color: #495057;
+  
 }
 
 .file svg, .folder svg{
@@ -32,8 +33,10 @@
 .folder-header {
   display:flex;
   align-items: center;
-  justify-content: center;
-  gap:16px;
+  gap:8px;
+  font-size:1rem;
+  font-family:sans-serif;
+  font-weight:bold;
 }
 
 a{
@@ -184,6 +187,117 @@ hr{
 
 button{
   cursor: pointer;
+}
+
+/* --------------------------------------*/
+/* ------------- TABLE DATA -------------*/
+/* --------------------------------------*/
+.file-dashboard-header{
+  max-width: 1200px;
+  width:100%;
+  justify-self: center;
+  padding:8px;
+  display:flex;
+  justify-content: right;
+  align-items: center;
+  gap:16px;
+  box-sizing: border-box;
+}
+
+.folder-view-header{
+  max-width: 1200px;
+  width:100%;
+  justify-self: center;
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  padding:8px;
+
+}
+
+.folder-view-header a{
+  display:flex;
+  align-items: center;
+  color:rgb(0, 0, 0);
+  background-color: rgb(255, 175, 71);
+  border-radius:8px;
+  padding:8px 24px;
+}
+.folder-view-header svg{
+  height:16px;
+  width:16px;
+}
+
+.file-dashboard-header-buttons{
+  display:flex;
+  gap:16px;
+}
+
+#realFileInput{
+  display:none;
+}
+
+.file-dashboard-header button, .folder-view-header button{
+  border:none;
+  cursor: pointer;
+  background-color:#3882F6;
+  color:#F9FaF8;
+  border-radius: 8px;
+  padding:8px 24px;
+  
+}
+
+.file-dashboard-header button:hover{
+  background-color: #186ef7;
+}
+
+.table-row-name{
+  display:flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.table-row-name svg{
+  width:25px;
+  height:25px;
+}
+
+table {
+  border-collapse: collapse;
+  border: 2px solid rgb(140 140 140);
+  font-family: sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+  max-width:1200px;
+  width:100%;
+  justify-self: center;
+}
+
+th, td {
+  padding: 8px 10px;
+  white-space: nowrap; 
+}
+
+tr{
+  border: 1px solid rgb(160 160 160);
+}
+
+tbody tr:hover{
+  background-color: rgb(233, 233, 233);
+  cursor:pointer;
+}
+
+tbody th{
+  font-weight:normal;
+}
+
+tbody td{
+  color: var(--muted-text-color)
+}
+
+thead{
+  text-align:left;
 }
 
 
