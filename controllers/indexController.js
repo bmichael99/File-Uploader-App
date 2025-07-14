@@ -7,6 +7,7 @@ const { createClient } = require('@supabase/supabase-js');
 const fs = require("fs").promises;
 const f = require("fs");
 const supabase = require("../services/supabaseService");
+const {asyncHandler} = require("../utils/asyncHandler");
 require('dotenv').config()
 
 const mimeTypeIcons = {
@@ -167,12 +168,16 @@ exports.getFolder = async (req,res) => {
   res.locals.folder = folder;
 
   if(files.length > 0){
-    const filesWithIcons = files.map(file => ({
+      const filesWithIcons = files.map(file => ({
         ...file,
-        icon: mimeTypeIcons[file.mimeType] || mimeTypeIcons["default"]
+        icon: mimeTypeIcons[file.mimeType] || mimeTypeIcons["default"],
+        uploadedAt: file.uploadedAt.toLocaleString('en-US', {
+          dateStyle: 'medium',
+          timeStyle: 'short'
+        }),
       }))
-    res.locals.files = filesWithIcons;
-  }
+      res.locals.files = filesWithIcons;
+    }
 
   res.render("insideFolder");
 }
@@ -267,3 +272,24 @@ exports.showFileDashboard = async (req,res) => {
 
   res.render("fileDashboard", {title: "File Dashboard"});
 }
+
+exports.showFileInfo = asyncHandler( async(req,res) => {
+
+
+  let file = await db.getFilebyFileId(req.params.fileId);
+  file = {
+    ...file,
+    icon: mimeTypeIcons[file.mimeType] || mimeTypeIcons["default"],
+    uploadedAt: file.uploadedAt.toLocaleString('en-US', {
+          dateStyle: 'medium',
+          timeStyle: 'short'
+    }),
+  }
+  
+  if(file.userId !== req.user.id){
+    return res.redirect("/");
+  }
+
+  res.locals.file = file;
+  res.render("fileInfo");
+})
