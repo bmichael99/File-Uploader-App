@@ -74,13 +74,20 @@ async function getFilesByUser(userId){
 }
 
 async function getFilebyFileId(fileId){
-  const file = await prisma.file.findUnique({
-    where: {
+  try{
+    const file = await prisma.file.findUnique({
+      where: {
       id: Number(fileId),
-    }
-  });
+      }
+    });
 
-  return file;
+    return file;
+  } catch(err){
+    throw err;
+  }
+
+
+  
 }
 
 async function getFilesByFolder(folderId,userId){
