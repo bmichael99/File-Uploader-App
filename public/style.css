@@ -300,6 +300,50 @@ thead{
   text-align:left;
 }
 
+/* ---------------------------------------*/
+/* -------------- FILE INFO --------------*/
+/* ---------------------------------------*/
+
+.file-view-header{
+  max-width: 1200px;
+  width:100%;
+  justify-self: center;
+  display:flex;;
+  align-items: center;
+  box-sizing: border-box;
+  padding:8px;
+  justify-content: space-between;
+}
+
+.file-view-header a{
+  display:flex;
+  justify-self: left;
+  align-items: center;
+  color:rgb(0, 0, 0);
+  background-color: rgb(255, 175, 71);
+  border-radius:8px;
+  padding:8px 24px;
+}
+.file-view-header svg{
+  height:16px;
+  width:16px;
+}
+
+.file-info-card{
+  justify-self: center;
+  max-width:600px;
+  width:100%;
+  border:1px solid black;
+}
+
+.file-info-card-title{
+  justify-self:center;
+}
+
+
+
+
+
 
 /* ---------------------------------------*/
 /* ------------ MEDIA QUERIES ------------*/
