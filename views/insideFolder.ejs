@@ -34,28 +34,8 @@
 
     </div>
 
-    <table>
-      <thead>
-        <tr>
-          <th scope="col">Name</th>
-          <th scope="col">Date Modified</th>
-          <th scope="col">File Size</th>
-          <th scope="col">File Type</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% if (locals.files) { %> 
-        <% locals.files.forEach(file => { %>
-          <tr>
-            <th scope = "row" class="table-row-name"><%-file.icon%> <%= file.originalName %></th>
-            <td><%= file.uploadedAt %></td>
-            <td><%= file.size %></td>
-            <td><%= file.mimeType %></td>
-          </tr>
-        <% }) %>
-        <%}%>
-      </tbody>
-    </table>
+    <%- include('partials/displayFiles') %>
+    
   </main>
 
   <%- include('partials/footer') %>
