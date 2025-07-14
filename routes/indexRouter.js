@@ -13,6 +13,7 @@ indexRouter.post("/sign-up", indexController.SignUpPost);
 indexRouter.post("/log-in", indexController.LogInPost);
 indexRouter.get("/log-out", indexController.LogOutGet);
 indexRouter.get("/files", isAuth, indexController.showFileDashboard);
+indexRouter.get("/file/:fileId", isAuth, indexController.showFileInfo);
 
 
 
