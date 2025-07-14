@@ -115,12 +115,26 @@ app.use((req,res,next) => {
 })
 
 /**
- *  -------------------- ROUTER AND SERVER --------------------
+ *  -------------------- ROUTERS --------------------
  */
 
 //serve index router when root is visited
 const indexRouter = require("./routes/indexRouter");
 app.use("/",indexRouter);
+
+/**
+ * -------------------- ERROR HANDLING --------------------
+ */
+
+app.use((err, req, res, next) => {
+  console.error(err); // Log unexpected errors
+  res.redirect("/");
+  //res.status(500).json({ message: 'Something went wrong' });
+});
+
+/**
+ *  -------------------- SERVER --------------------
+ */
 
 //starts the server and listens on port 3000
 const PORT = 3000;
