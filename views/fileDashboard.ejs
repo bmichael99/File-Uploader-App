@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><%= title %></title>
   <link rel="stylesheet" href="/style.css">
+  <script src="/js/folderModal.js" defer></script>
 </head>
 <body>
 <div class="root-container">
@@ -17,13 +18,15 @@
           <button type="button" onclick="document.getElementById('realFileInput').click();"
            >Upload File</button>
       </form>
-      <button>Create Folder</button>
+      <button class ="create-folder-button">Create Folder</button>
     </div>
 
     <%- include('partials/displayFiles') %>
-    
+
   </main>
   <%- include('partials/footer') %>
 </div>
+<%- include('partials/folderModal.ejs')%>
 </body>
+
 </html>
