@@ -16,32 +16,7 @@
 
   
     <h1><%= title %></h1>
-    <!--
-    <% if (locals.user) {%>
-      <h1>WELCOME BACK <%= user.username %></h1>
-      <a href="/log-out">LOG OUT</a>
 
-      <form action="/upload-file" enctype="multipart/form-data" method="post">
-          <input type="file" class="form-control-file" name="uploaded_file">
-          <input type="submit" value="Upload">
-      </form>
-    <a href="/create-folder">Create folder</a>
-
-    <%- include('displayFolders') %>
-    <%- include('displayFiles') %>
-    <% } else { %>
-    <h2>please log in or sign up</h2>
-    <form action="/log-in" method="POST">
-      <label for="username">Username</label>
-      <input id="username" name="username" placeholder="username" type="text" />
-      <label for="password">Password</label>
-      <input id="password" name="password" type="password" />
-      <button type="submit">Log In</button>
-    </form>
-
-    <a href="/sign-up">sign up</a>
-    <%}%>
-  -->
   </main>
 
   <%- include('partials/footer') %>
