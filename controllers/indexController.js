@@ -196,7 +196,7 @@ exports.getUserFolders = (req,res) => {
 
 exports.CreateFolderPost = (req,res) => {
   db.createFolder(req.body.folder_name, req.user.id);
-  res.redirect("/");
+  res.redirect("/files");
 }
 
 exports.CreateFolderGet = (req,res) => {
@@ -219,7 +219,7 @@ exports.deleteFile = async (req,res) => {
     if(req.params.folderId){
       res.redirect(`/folder/${req.params.folderId}`);
     } else {
-      res.redirect("/");
+      res.redirect("/files");
     }
 }
 
