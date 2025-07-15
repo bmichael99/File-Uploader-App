@@ -14,7 +14,8 @@
 
       <div class="file-view-header">
         <div>
-          <a href="/files"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M5 12H19M5 12L11 6M5 12L11 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+          <% const returnLink = locals.file.folderId ? `/folder/${locals.file.folderId}` : '/files'; %>
+          <a href="<%= returnLink %>"><svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M5 12H19M5 12L11 6M5 12L11 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
             Return</a>
         </div>
 
@@ -22,17 +23,30 @@
           <p class = "folder-header file-info-card-header">
           <%-locals.file.icon%>
           <%=locals.file.originalName%></p>
+
         </div>
 
       </div>
 
-
       <div class="file-info-card">
-
-
-
         <p class="file-info-card-title"><%= file.originalName %></p>
+        <div class="file-info-card-body">
+          <p>Name:</p>
+          <p><%=locals.file.originalName%></p>
+          <p>File Type:</p>
+          <p><%=locals.file.mimeType%></p>
+          <p>Folder:</p>      
+          <p><%if(locals.file.folderId){%><%=locals.file.folderId%><%}else{%>N/A<%}%></p>
+          <p>Uploaded At:</p>
+          <p><%=locals.file.uploadedAt%></p>
+        </div>
 
+        <div class="file-info-card-buttons">
+          <a href="/download-file/<%=locals.file.id%>" class="blue-button">Download File</a>
+          <form action="/delete-file/<%= locals.file.id %><%if(locals.file.folderId){%>/<%=locals.file.folderId%><%}%> " method="POST" onsubmit="return confirm('Are you sure you want to delete this file?');">
+            <button type="submit" class="red-button">Delete File</button>
+          </form>
+        </div>
 
       </div>
     </main>
