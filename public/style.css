@@ -333,16 +333,112 @@ thead{
   justify-self: center;
   max-width:600px;
   width:100%;
-  border:1px solid black;
+  border:1px solid var(--border-color);
+  border-radius:8px;
+  box-shadow: 5px 5px 10px rgb(197, 197, 197);
+  padding:32px;
+  box-sizing: border-box;
+  display:flex;
+  flex-direction: column;
+  align-items:center;
 }
 
 .file-info-card-title{
-  justify-self:center;
+
+}
+
+.file-info-card-body{
+  display:grid;
+  grid-template-columns: auto 1fr;
+  gap: 8px 16px;
+  padding:32px;
+}
+.file-info-card-buttons{
+  display:flex;
+  gap:16px;
+}
+
+/* ---------------------------------------*/
+/* --------- Create Folder Modal ---------*/
+/* ---------------------------------------*/
+
+.create-folder-modal{
+  border: 1px solid var(--border-color);
+  border-radius:8px;
+}
+
+.create-folder-modal input:focus{
+  /*outline:none;
+  border:2px solid rgb(0, 180, 0);*/
 }
 
 
 
+/* ----------------------------------------*/
+/* ------------ GLOBAL BUTTONS ------------*/
+/* ----------------------------------------*/
+ 
+.blue-button{
+  border:none;
+  cursor: pointer;
+  background-color:#3882F6;
+  color:#F9FaF8;
+  border-radius: 8px;
+  padding:8px 24px;
+  font-family:sans-serif;
+  font-size:.9rem;
+  box-shadow: 3px 3px 5px rgb(201, 201, 201);
+}
 
+.blue-button:hover{
+  background-color: #186ef7;
+}
+
+.red-button{
+  border:none;
+  cursor: pointer;
+  background-color:#f63838;
+  color:#F9FaF8;
+  border-radius: 8px;
+  padding:8px 24px;
+  font-family:sans-serif;
+  font-size:.9rem;
+  box-shadow: 3px 3px 5px rgb(201, 201, 201);
+}
+
+.red-button:hover{
+  background-color: #e43434;
+}
+
+.green-button{
+  border:none;
+  cursor: pointer;
+  background-color:rgb(8, 230, 0);
+  color:#F9FaF8;
+  border-radius: 8px;
+  padding:8px 24px;
+  font-family:sans-serif;
+  font-size:.9rem;
+}
+
+.green-button:hover{
+  background-color:rgb(6, 192, 0);
+}
+
+.orange-button{
+  border:none;
+  cursor: pointer;
+  background-color:rgb(255, 145, 0);
+  color:#F9FaF8;
+  border-radius: 8px;
+  padding:8px 24px;
+  font-family:sans-serif;
+  font-size:.9rem;
+}
+
+.orange-button:hover{
+  background-color:rgb(207, 117, 0);
+}
 
 
 /* ---------------------------------------*/
