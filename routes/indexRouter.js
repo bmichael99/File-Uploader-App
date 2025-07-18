@@ -15,7 +15,9 @@ indexRouter.get("/log-out", indexController.LogOutGet);
 indexRouter.get("/files", isAuth, indexController.showFileDashboard);
 indexRouter.get("/file/:fileId", isAuth, indexController.showFileInfo);
 
-
+indexRouter.post("/file/:fileId/link", isAuth, indexController.createShareLink);
+indexRouter.get("/share/:linkId", indexController.getSharedFile)
+indexRouter.get("/download-file/:fileId/:linkId", indexController.downloadSharedFile);
 
 indexRouter.post("/upload-file", upload.single('uploaded_file'), indexController.uploadPost);
 indexRouter.post("/upload-file/:folderId", upload.single('uploaded_file'), indexController.uploadPost);
