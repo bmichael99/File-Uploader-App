@@ -10,6 +10,26 @@ const supabase = require("../services/supabaseService");
 const {asyncHandler} = require("../utils/asyncHandler");
 require('dotenv').config()
 
+const alphaErr = "must only contain letters.";
+const lengthErr = "must be between 1 and 20 characters.";
+const folderLengthErr = "must be between 1 and 30 characters.";
+const passwordLengthErr = "must be between 7 and 30 characters."
+
+const validateUser = [
+  body("first_name").trim()
+    .isAlpha().withMessage(`First name ${alphaErr}`)
+    .isLength({ min: 1, max: 20 }).withMessage(`First name ${lengthErr}`),
+  body("username").trim()
+    .isLength({ min: 1, max: 20 }).withMessage(`Username ${lengthErr}`),
+  body("password").trim()
+    .isLength({ min: 7, max: 30 }).withMessage(`Password ${passwordLengthErr}`),
+];
+
+const validateFolder = [
+  body("folder_name").trim()
+  .isLength({min:1, max:30}).withMessage(`Folder Name ${folderLengthErr}`),
+];
+
 const mimeTypeIcons = {
   //images
   "image/jpeg" : `<svg viewBox="0 -2 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <title>image_picture [#972]</title> <desc>Created with Sketch.</desc> <defs> </defs> <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="Dribbble-Light-Preview" transform="translate(-380.000000, -3881.000000)" fill="#000000"> <g id="icons" transform="translate(56.000000, 160.000000)"> <path d="M336,3725.5 C336,3724.948 336.448,3724.5 337,3724.5 C337.552,3724.5 338,3724.948 338,3725.5 C338,3726.052 337.552,3726.5 337,3726.5 C336.448,3726.5 336,3726.052 336,3725.5 L336,3725.5 Z M340,3733 L328,3733 L332.518,3726.812 L335.354,3730.625 L336.75,3728.75 L340,3733 Z M326,3735 L342,3735 L342,3723 L326,3723 L326,3735 Z M324,3737 L344,3737 L344,3721 L324,3721 L324,3737 Z" id="image_picture-[#972]"> </path> </g> </g> </g> </g></svg>`,
@@ -76,21 +96,35 @@ exports.showLogIn = (req,res) => {
   res.render('logIn');
 };
 
-exports.SignUpPost = async (req,res, next) => {
+exports.SignUpPost = [validateUser, async (req,res, next) => {
+
+  const errors = validationResult(req);
+  const errorMessages = errors.array().map(err => err.msg);
+    if (!errors.isEmpty()) {
+      return res.status(400).render("sign-up-form", {
+        errors: errorMessages,
+      });
+    }
   try{
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     await db.createUser(req.body.first_name, req.body.username,hashedPassword);
-    res.redirect("/");
+    res.render("logIn", {signedUp: {username: req.body.username, password: req.body.password}});
   }
   catch(err){
     return next(err);
   }
-};
+}];
 
 exports.LogInPost = (req,res,next) => {
-    passport.authenticate("local", {
-    successRedirect: "/",
-    failureRedirect: "/"
+    passport.authenticate("local", (err,user,info) => {
+      if (err) return next(err);
+      if (!user) {
+        return res.render("logIn", {error: info?.message || "Login failed"});
+      }
+      req.logIn(user, (err) => {
+        if (err) return next(err);
+        return res.redirect("/");
+      });
     })(req, res, next);
 };
 
@@ -110,10 +144,8 @@ exports.uploadPost = async (req,res,next) => {
   const fileBuffer = await fs.readFile(req.file.path);
   const {path, data, error} = await supabase.uploadFile("uploads",req.user.id,fileBuffer,req.file);
   if(error){
-    res.status(500).json({
-      sucess:false,
-      error: error.message,
-    })
+    req.flash('error', "File already exists");
+    return res.redirect("/files");
   } else {
     if(req.params.folderId){
       const folderId = Number(req.params.folderId);
@@ -157,6 +189,34 @@ exports.downloadFile = async (req,res) => {
   
 };
 
+exports.downloadSharedFile = async (req,res) => {
+  const file = await db.getFilebyFileId(req.params.fileId);
+  const link = await db.getLinkByLinkId(req.params.linkId);
+
+  if(!link || !file){
+    return res.redirect("/");
+  }
+
+
+  const {data, error} = await supabase.downloadFile("uploads",file.url);
+
+  if(error){
+    res.status(500).json({
+      sucess:false,
+      error: error.message,
+    })
+    return res.redirect("/");
+  }
+
+  const arrayBuffer = await data.arrayBuffer();
+  const buffer = Buffer.from(arrayBuffer);
+  res.setHeader('Content-Disposition', `attachment; filename="${file.url.split('/')[1]}"`);
+  res.setHeader("Content-Type", "application/octet-stream");
+  res.setHeader("Content-Length", buffer.length);
+  return res.end(buffer) //stream the file to the client
+
+}
+
 exports.getFolder = async (req,res) => {
   const folder = await db.getFolderbyFolderId(req.params.folderId);
 
@@ -194,10 +254,22 @@ exports.getUserFolders = (req,res) => {
   res.render("displayFolders");
 };
 
-exports.CreateFolderPost = (req,res) => {
-  db.createFolder(req.body.folder_name, req.user.id);
-  res.redirect("/files");
-}
+exports.CreateFolderPost = [validateFolder, async(req,res) => {
+  const errors = validationResult(req);
+  const errorMessages = errors.array().map(err => err.msg);
+    if (!errors.isEmpty()) {
+      req.flash('error', errorMessages);
+      return res.redirect("/files")
+    }
+
+  try{
+    await db.createFolder(req.body.folder_name, req.user.id);
+    res.redirect("/files");
+  } catch(err){
+    return next(err);
+  }
+  
+}]
 
 exports.CreateFolderGet = (req,res) => {
   res.render("createFolder");
@@ -275,7 +347,6 @@ exports.showFileDashboard = async (req,res) => {
 
 exports.showFileInfo = asyncHandler( async(req,res) => {
 
-
   let file = await db.getFilebyFileId(req.params.fileId);
   file = {
     ...file,
@@ -292,4 +363,34 @@ exports.showFileInfo = asyncHandler( async(req,res) => {
 
   res.locals.file = file;
   res.render("fileInfo");
+})
+
+exports.createShareLink = asyncHandler(async(req,res) => {
+  const linkID = crypto.randomUUID();
+  const fileId = Number(req.params.fileId);
+  //const expiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000);
+  const expiresAt = new Date(Date.now() + req.body.expiration * 60 * 1000);
+
+  await db.createLink(fileId,linkID,expiresAt);
+  req.flash('clipboard', `localhost:3000/share/${linkID}`);
+  res.redirect(`/file/${fileId}`);
+})
+
+exports.getSharedFile = asyncHandler(async(req,res) => {
+  const link = await db.getFileByLinkId(req.params.linkId);
+  const file = link?.file;
+
+  if(!link){
+    //WIP: add info page telling the user that this link is expired or does not exist.
+    return res.redirect("/");
+  }
+
+  if(Date.now() > link.expiresAt){
+    await db.deleteLink(link.id);
+    return res.redirect("/");
+  }
+
+  res.locals.link = link;
+  res.locals.file = file;
+  res.render("sharedFileInfo");
 })
