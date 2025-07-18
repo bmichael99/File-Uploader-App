@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shared File - Uploadify</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="root-container">
+    <%- include('partials/navbar') %>
+    <main>
+
+
+      <div class="file-view-header">
+
+
+      </div>
+
+      <div class="file-info-card">
+        <p class="file-info-card-title"><%= file.originalName %></p>
+        <div class="file-info-card-body">
+          <p>Name:</p>
+          <p><%=locals.file.originalName%></p>
+          <p>File Type:</p>
+          <p><%=locals.file.mimeType%></p>
+          <p>Folder:</p>      
+          <p><%if(locals.file.folderId){%><%=locals.file.folderId%><%}else{%>N/A<%}%></p>
+          <p>Uploaded At:</p>
+          <p><%=locals.file.uploadedAt%></p>
+        </div>
+
+        <div class="file-info-card-buttons">
+          <a href="/download-file/<%=locals.file.id%>/<%=locals.link.id%>" class="blue-button">Download File</a>
+        </div>
+
+
+      </div>
+    </main>
+
+
+
+    <%- include('partials/footer') %>
+  </div>
+</body>
+</html>
