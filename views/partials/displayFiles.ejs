@@ -1,30 +1,30 @@
     <table>
       <thead>
         <tr>
-          <th scope="col">Name</th>
-          <th scope="col">Date Modified</th>
-          <th scope="col">File Size</th>
-          <th scope="col">File Type</th>
+          <th scope="col" class="column-1">Name</th>
+          <th scope="col" class="column-2">Date Modified</th>
+          <th scope="col" class="column-3">File Size</th>
+          <th scope="col" class="column-4">File Type</th>
         </tr>
       </thead>
       <tbody>
         <% if (locals.folders) { %> 
         <% locals.folders.forEach(folder => { %>
           <tr onclick="window.location.href = '/folder/<%=folder.id%>'">
-            <th scope = "row" class="table-row-name"><%-folder.icon%> <%= folder.name %></th>
-            <td><%= folder.createdAt %></td>
-            <td>-</td>
-            <td>Folder</td>
+            <th scope = "row" class="table-row-name column-1"><%-folder.icon%> <%= folder.name %></th>
+            <td class="column-2"><%= folder.createdAt %></td>
+            <td class="column-3">-</td>
+            <td class="column-4">Folder</td>
           </tr>
         <% }) %>
         <%}%>
         <% if (locals.files) { %> 
         <% locals.files.forEach(file => { %>
           <tr onclick="window.location.href = '/file/<%=file.id%>'">
-            <th scope = "row" class="table-row-name"><%-file.icon%> <%= file.originalName %></th>
-            <td><%= file.uploadedAt %></td>
-            <td><%= file.size %></td>
-            <td><%= file.mimeType %></td>
+            <th scope = "row" class="table-row-name column-1"><%-file.icon%> <div class="truncate-text"><%= file.originalName %></div></th>
+            <td class="column-2"><%= file.uploadedAt %></td>
+            <td class="column-3"><%= file.size %></td>
+            <td class="column-4"><%= file.mimeType %></td>
           </tr>
         <% }) %>
         <%}%>
