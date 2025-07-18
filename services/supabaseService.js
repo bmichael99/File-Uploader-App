@@ -15,10 +15,10 @@ const { data, error } = await supabase.storage
     upsert: false,
   })
   if(error){
-    console.error(error);
-  }else{
-    console.log("sucess");
-    console.log(data);
+    return {path: `N/A`, data: data, error: error}
+  } else {
+    //console.log("sucess");
+    //console.log(data);
     return {path: `${userID}/${fileAbout.originalname}`, data: data, error: error};
   }
 
