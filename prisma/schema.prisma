@@ -45,6 +45,7 @@ model File {
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId       Int
   uploadedAt   DateTime @default(now())
+  links        Link[]
 }
 
 model Session {
@@ -53,5 +54,15 @@ model Session {
   data        String   
   expiresAt   DateTime
 }
+
+
+model Link{
+  id          String    @id
+  file        File      @relation(fields: [fileId], references: [id], onDelete: Cascade)
+  fileId      Int
+  createdAt   DateTime  @default(now())
+  expiresAt   DateTime
+}
+
 
 
