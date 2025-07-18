@@ -78,6 +78,7 @@ async function getFilebyFileId(fileId){
     const file = await prisma.file.findUnique({
       where: {
       id: Number(fileId),
+
       }
     });
 
@@ -85,9 +86,6 @@ async function getFilebyFileId(fileId){
   } catch(err){
     throw err;
   }
-
-
-  
 }
 
 async function getFilesByFolder(folderId,userId){
@@ -110,6 +108,61 @@ async function deleteFolderById(folderId){
   });
 }
 
+async function createLink(fileId,linkId,expiresAt){
+  try{
+    return await prisma.link.create({
+      data: {id:linkId, fileId, expiresAt}
+    })
+  }catch(err){
+    throw err;
+  }
+}
+
+async function getFileByLinkId(fileId){
+  try{
+    return await prisma.link.findUnique({
+    where: {id: fileId},
+    include: {
+      file: true,
+    }
+  })
+  } catch(err){
+    throw err;
+  }
+  
+}
+
+async function getLinksByFileId(fileId){
+  try{
+    return await prisma.link.findMany({
+    where: {id: fileId}
+  })
+  } catch(err){
+    throw err;
+  }
+  
+}
+
+async function deleteLink(linkId){
+  try{
+    return await prisma.link.delete({
+    where: {id: linkId}
+  })
+  } catch(err){
+    throw err;
+  }
+}
+
+async function getLinkByLinkId(linkId){
+  try{
+    return await prisma.link.findUnique({
+    where: {id: linkId}
+  })
+  } catch(err){
+    throw err;
+  }
+}
+
 
 
 module.exports = {
@@ -126,4 +179,9 @@ module.exports = {
   getFilebyFileId,
   deleteFolderById,
   getFolderbyFolderId,
+  createLink,
+  getLinksByFileId,
+  getFileByLinkId,
+  deleteLink,
+  getLinkByLinkId,
 };
