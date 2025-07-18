@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title><%= title %></title>
+  <title>File Dashboard - Uploadify</title>
   <link rel="stylesheet" href="/style.css">
   <script src="/js/folderModal.js" defer></script>
 </head>
@@ -12,13 +12,19 @@
   <%- include('partials/navbar') %>
   <main>
     <div class="file-dashboard-header">
-      <form id="uploadForm" action="/upload-file" enctype="multipart/form-data" method="post">
-          <input type="file" class="form-control-file" name="uploaded_file" id="realFileInput" 
-          onchange="document.getElementById('uploadForm').submit();">
-          <button type="button" onclick="document.getElementById('realFileInput').click();"
-           >Upload File</button>
-      </form>
+      <div class="file-dashboard-header-left">
+        <%- include('partials/errors.ejs') %>
+      </div>
+      <div class="file-dashboard-header-right">
+        <form id="uploadForm" action="/upload-file" enctype="multipart/form-data" method="post">
+            <input type="file" class="form-control-file" name="uploaded_file" id="realFileInput" 
+            onchange="document.getElementById('uploadForm').submit();">
+            <button type="button" onclick="document.getElementById('realFileInput').click();"
+            >Upload File</button>
+        </form>
+      
       <button class ="create-folder-button">Create Folder</button>
+      </div>
     </div>
 
     <%- include('partials/displayFiles') %>
