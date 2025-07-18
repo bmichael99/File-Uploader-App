@@ -4,6 +4,7 @@ const session = require("express-session");
 const passport = require("passport");
 const bcrypt = require("bcryptjs")
 const LocalStrategy = require('passport-local').Strategy;
+const flash = require('connect-flash');
 //const pgSession = require('connect-pg-simple')(session);
 require('dotenv').config();
 
@@ -67,6 +68,15 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
+
+app.use((req, res, next) => {
+  res.locals.success = req.flash('success');
+  res.locals.error = req.flash('error');
+  res.locals.errors = req.flash('errors');
+  res.locals.clipboard = req.flash('clipboard');
+  next();
+});
 
 
 passport.use(
@@ -78,11 +88,13 @@ passport.use(
       });
 
       if (!user) {
-        return done(null, false, { message: "Incorrect username" });
+        //req.flash("errors", "Incorrect username, sign up instead?");
+        return done(null, false, { message: "Incorrect username, sign up instead?" });
       }
       const match = await bcrypt.compare(password, user.password);
       if (!match) {
         // passwords do not match!
+        //req.flash("errors", "Incorrect password");
         return done(null, false, { message: "Incorrect password" })
       }
       return done(null, user);
