@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Log In - Uploadify</title>
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
@@ -20,17 +20,19 @@
           <form class = "login-form" action="/log-in" method="POST">
             <div class = "form-group">
             <label for="username">Username</label>
-            <input id="username" name="username" placeholder="Enter Your Username" type="text" />
+            <input id="username" name="username" <%if(locals.signedUp){%>value="<%=signedUp.username%>"<%}%>placeholder="Enter Your Username" type="text" />
             </div>
             <div class = "form-group">
             <label for="password">Password</label>
-            <input id="password" name="password" placeholder="Enter Your password"type="password" />
+            <input id="password" name="password" <%if(locals.signedUp){%>value="<%=signedUp.username%>"<%}%>placeholder="Enter Your Password"type="password" />
             </div>
             <div class = "form-group">
             <button type="submit">Log In</button>
             
             </div>
           </form>
+
+        <%- include('partials/errors.ejs') %>
         
         <div class = "form-spacer">
         <hr>
@@ -39,7 +41,7 @@
         </div>
         
         <p class="login-signup-title">Need an Account?</p>
-        <button onclick="window.location.href='/sign-up'">Sign Up</button>
+        <button onclick="window.location.href='/sign-up'" class="dark-button">Sign Up</button>
 
       </div>
 
