@@ -19,6 +19,9 @@ indexRouter.post("/file/:fileId/link", isAuth, indexController.createShareLink);
 indexRouter.get("/share/:linkId", indexController.getSharedFile)
 indexRouter.get("/download-file/:fileId/:linkId", indexController.downloadSharedFile);
 
+indexRouter.get("/file/:fileId/links", isAuth, indexController.getManageLinksPage);
+indexRouter.post("/link/:linkId/delete", isAuth, indexController.deleteLink);
+
 indexRouter.post("/upload-file", upload.single('uploaded_file'), indexController.uploadPost);
 indexRouter.post("/upload-file/:folderId", upload.single('uploaded_file'), indexController.uploadPost);
 indexRouter.get("/download-file/:fileId", isAuth, indexController.downloadFile);
