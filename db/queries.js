@@ -163,6 +163,34 @@ async function getLinkByLinkId(linkId){
   }
 }
 
+async function getFileWithLinksbyFileId(fileId){
+  try{
+    const file = await prisma.file.findUnique({
+      where: {
+      id: Number(fileId),
+      },
+      include:{
+        links: true,
+      }
+    });
+    return file;
+  } catch(err){
+    throw err;
+  }
+}
+
+async function deleteLinkByLinkId(linkId){
+  try{
+    const link = await prisma.link.delete({
+      where: {
+      id: linkId,
+      }
+    });
+    return link;
+  } catch(err){
+    throw err;
+  }
+}
 
 
 module.exports = {
@@ -184,4 +212,6 @@ module.exports = {
   getFileByLinkId,
   deleteLink,
   getLinkByLinkId,
+  getFileWithLinksbyFileId,
+  deleteLinkByLinkId,
 };
