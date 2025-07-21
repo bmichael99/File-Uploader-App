@@ -394,3 +394,81 @@ exports.getSharedFile = asyncHandler(async(req,res) => {
   res.locals.file = file;
   res.render("sharedFileInfo");
 })
+
+exports.getManageLinksPage = asyncHandler(async(req,res) => {
+  let file = await db.getFileWithLinksbyFileId(req.params.fileId);
+  if(!file || file.userId != req.user.id){
+    return res.redirect("/");
+  }
+
+
+  file.links = file.links.map((link) => {
+    const timeLeftSeconds = Math.floor((link.expiresAt - new Date())/1000);
+    const timeLeftMinutes = Math.floor(timeLeftSeconds/60);
+    const timeLeftHours = Math.floor(timeLeftMinutes/60);
+    let timeLeft = "";
+    if(timeLeftSeconds < 0){
+      timeLeft = "Exp";
+    }
+    else if(timeLeftMinutes < 60 && timeLeftSeconds > 0){
+      timeLeft = timeLeftMinutes + "M";
+    } else{
+      timeLeft = timeLeftHours + "H";
+    }
+
+    let totalDuration = (link.expiresAt - link.createdAt);
+    let timeElapsed = new Date() - link.createdAt;
+    let timeLeftPercentage = 100 - (timeElapsed / totalDuration) * 100;
+    if(timeLeftSeconds < 0){
+      timeLeftPercentage = 0;
+    }
+
+    let timeRemainingColor = "#4a4c51";
+    if(timeLeftPercentage > 66.6){
+      timeRemainingColor = "#1ec71eff";
+    } else if(timeLeftPercentage > 33.3 && timeLeftPercentage <= 66.6){
+      timeRemainingColor = "#cfcf00ff";
+    }else if(timeLeftPercentage > 0 && timeLeftPercentage <= 33.3){
+      timeRemainingColor = "#d30000ff";
+    }else{
+      timeRemainingColor = "#d30000ff";
+    }
+
+    return ({
+      ...link,
+      timeRemaining: timeLeft,
+      timeRemainingPercentage: timeLeftPercentage,
+      timeRemainingColor,
+    })
+  })
+
+  file = {
+    ...file,
+    icon: mimeTypeIcons[file.mimeType] || mimeTypeIcons["default"],
+    uploadedAt: file.uploadedAt.toLocaleString('en-US', {
+          dateStyle: 'medium',
+          timeStyle: 'short'
+    }),
+  }
+
+  res.locals.file = file;
+  res.render("manageLinks");
+})
+
+exports.deleteLink = asyncHandler(async(req,res) => {
+  let link = await db.getLinkByLinkId(req.params.linkId);
+  if(!link){
+    return res.redirect("/");
+  }
+
+  let file = await db.getFilebyFileId(link.fileId);
+
+  if(file.userId != req.user.id){
+    return res.redirect("/");
+  }
+
+  await db.deleteLinkByLinkId(link.id);
+
+  res.redirect(`/file/${file.id}/links`);
+
+})
