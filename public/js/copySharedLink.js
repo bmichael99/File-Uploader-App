@@ -13,3 +13,22 @@
         }
       });
     }
+
+    async function copyClick(linkId){
+      console.log("clicked");
+      const copyInput = document.querySelector(`.copy-input-${linkId}`);
+      const copyButton = document.querySelector(`.copy-button-${linkId}`);
+
+      copyButton.textContent = "Copied!";
+      copyButton.classList = `green-button copy-button-${linkId}`;
+
+      await navigator.clipboard.writeText(copyInput.value);
+      await resetLinkButton(copyButton,linkId);
+    }
+
+    async function resetLinkButton(copyButton, linkId){
+        setTimeout(() => {
+          copyButton.textContent = "Copy";
+          copyButton.classList = `darker-blue-button copy-button-${linkId}`;
+      }, 3000)
+    }
