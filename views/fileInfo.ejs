@@ -64,7 +64,7 @@
               </div>
             </form>
           </div>
-          <a href="" class="file-info-card-manage-links-button">Manage Links</a>
+          <a href="/file/<%=locals.file.id%>/links" class="file-info-card-manage-links-button">Manage Links</a>
           <%if(locals.success){%><%=locals.success%><%}%>
           <% if (locals.clipboard && locals.clipboard.length > 0) { %>
             <div class="copy-container">
@@ -73,8 +73,8 @@
                 <button class="copy-button darker-blue-button">Copy Link</button>
               </div>
                 <div class="copy-container-bottom">
-                <p class="copy-status"></p>
-              </div>
+                  <p class="copy-status"></p>
+                </div>
             </div>
           <% } %>
         </div>
