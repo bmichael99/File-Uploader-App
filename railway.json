@@ -6,7 +6,7 @@
   },
   "deploy": {
     "preDeployCommand": ["prisma migrate deploy"],
-    "startCommand": "node index.js",
+    "startCommand": "node app.js",
     "healthcheckPath": "/",
     "healthcheckTimeout": 100,
     "restartPolicyType": "ON_FAILURE"
