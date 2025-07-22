@@ -39,7 +39,7 @@
               <% const timeRemainingHtml = `<p style="color: ${link.timeRemainingColor};">${link.timeRemaining}</p>`; %>
               <%- timeRemainingHtml %>
             </div>
-            <input type="text" value="localhost:3000/share/<%=link.id%>" readonly class="copy-input copy-input-<%=link.id%>">
+            <input type="text" value="<%=link.baseUrl%>/share/<%=link.id%>" readonly class="copy-input copy-input-<%=link.id%>">
             <button class="darker-blue-button copy-button-<%=link.id%>" onclick="copyClick('<%=link.id%>')">Copy</button>
             <form action="/link/<%= link.id %>/delete " method="POST" onsubmit="return confirm('Are you sure you want to delete this link?');">
               <button type="submit" class="red-button">Delete</button>

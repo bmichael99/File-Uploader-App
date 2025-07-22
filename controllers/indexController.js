@@ -373,7 +373,8 @@ exports.createShareLink = asyncHandler(async(req,res) => {
   const expiresAt = new Date(Date.now() + req.body.expiration * 60 * 1000);
 
   await db.createLink(fileId,linkID,expiresAt);
-  req.flash('clipboard', `localhost:3000/share/${linkID}`);
+  const baseUrl = `${req.protocol}://${req.get('host')}`;
+  req.flash('clipboard', `${baseUrl}/share/${linkID}`);
   res.redirect(`/file/${fileId}`);
 })
 
@@ -434,12 +435,13 @@ exports.getManageLinksPage = asyncHandler(async(req,res) => {
     }else{
       timeRemainingColor = "#d30000ff";
     }
-
+    const baseUrl = `${req.protocol}://${req.get('host')}`;
     return ({
       ...link,
       timeRemaining: timeLeft,
       timeRemainingPercentage: timeLeftPercentage,
       timeRemainingColor,
+      baseUrl
     })
   })
 
