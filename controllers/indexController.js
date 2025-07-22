@@ -112,18 +112,28 @@ exports.SignUpPost = [validateUser, async (req,res, next) => {
     res.render("logIn", {signedUp: {username: req.body.username, password: req.body.password}});
   }
   catch(err){
+    if(err.code === "P2002"){
+      return res.render("sign-up-form", {error: "Username already exists."});
+    }else{
+      return res.render("sign-up-form", {erorr: "Sign Up Failed"});
+    }
+    
     return next(err);
   }
 }];
 
 exports.LogInPost = (req,res,next) => {
     passport.authenticate("local", (err,user,info) => {
-      if (err) return next(err);
+      if (err){
+        return next(err);
+      } 
       if (!user) {
         return res.render("logIn", {error: info?.message || "Login failed"});
       }
       req.logIn(user, (err) => {
-        if (err) return next(err);
+        if (err){
+          return next(err);
+        } 
         return res.redirect("/");
       });
     })(req, res, next);
