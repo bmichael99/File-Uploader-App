@@ -7,7 +7,7 @@ const { createClient } = require('@supabase/supabase-js');
 const fs = require("fs").promises;
 const f = require("fs");
 const supabase = require("../services/supabaseService");
-const {asyncHandler} = require("../utils/asyncHandler");
+const {asyncHandler} = require("../utils/asyncHandler.js");
 require('dotenv').config()
 
 const alphaErr = "must only contain letters.";
