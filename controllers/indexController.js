@@ -8,6 +8,7 @@ const fs = require("fs").promises;
 const f = require("fs");
 const supabase = require("../services/supabaseService");
 const {asyncHandler} = require("../utils/asyncHandler.js");
+const crypto = require('crypto');
 require('dotenv').config()
 
 const alphaErr = "must only contain letters.";
