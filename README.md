@@ -22,15 +22,6 @@ Live Demo: https://files.michaelbrandmeyer.com
 - ✅ Object-Relational Mapping through Prisma to help keep your data safe (no raw SQL)
 - ✅ User/Form input validation and visual feedback
 
-
-
-## Architecture
-
-This Web App Follows the Model-View-Controller (MVC) software architectural pattern.
-
-- **Model:** Business logic + Data layer via Prisma
-- **View:** UI presented via EJS (HTML/CSS)
-- **Controller:** 	Handles incoming requests, processes data (using models), returns a response or renders a view.
 ## Tech Stack
 
 - Node.js
@@ -41,9 +32,18 @@ This Web App Follows the Model-View-Controller (MVC) software architectural patt
 - PostgreSQL + Prisma
 - Supabase Storage
 
+## Architecture
+
+This Web App follows the Model-View-Controller (MVC) software architectural pattern.
+
+- **Model:** Business logic + Data layer via Prisma
+- **View:** UI presented via EJS (HTML/CSS)
+- **Controller:** 	Handles incoming requests, processes data (using models), returns a response or renders a view.
+
+
 ## Roadmap
 
-- Add Link tracking and analytics with detailed view, displaying the amount of clicks on your link, amount of unique clicks, and where your link has been shared.
+- Add link tracking and analytics with detailed view, displaying the amount of clicks on your link, amount of unique clicks, and where your link has been shared.
 ## License
 
 This project is licensed for **educational use only**. Please do not reuse or distribute the code without permission.
