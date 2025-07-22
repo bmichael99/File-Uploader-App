@@ -149,7 +149,7 @@ app.use((err, req, res, next) => {
  */
 
 //starts the server and listens on port 3000
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 const server = app.listen(PORT, () => {
   console.log(`My Express app - listening on port ${PORT}!`);
 });
