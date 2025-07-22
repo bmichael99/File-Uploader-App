@@ -1,0 +1,4 @@
+{
+  "build": "npm install",
+  "deploy": "node app.js"
+}
