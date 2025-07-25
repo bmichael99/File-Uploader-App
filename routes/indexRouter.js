@@ -3,8 +3,14 @@ const indexController = require("../controllers/indexController");
 const indexRouter = Router();
 const { isAuth } = require("../controllers/authMiddleware");
 const multer  = require('multer')
-const upload = multer({ dest: './public/data/uploads/' })
-
+const upload = multer({
+  dest: './public/data/uploads/', 
+  limits: {
+    fileSize: 5120,
+    fields: 1,
+    files: 1,
+  },
+})
 
 indexRouter.get("/", indexController.showHomePage);
 indexRouter.get("/sign-up", indexController.showSignUp);
