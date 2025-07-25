@@ -613,12 +613,16 @@ thead{
   gap:16px;
 }
 
+
+
 .file-info-card-body-link-group input{
   border: 1px solid var(--border);
   border-radius:8px;
   padding: 8px;
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
+
+
 
 .file-info-card-body-link-group-expiration{
   display:flex;
@@ -627,6 +631,8 @@ thead{
   font-weight: bold;
   
 }
+
+
 
 .file-info-card-body-link-group-expiration svg{
   width:20px;
@@ -701,7 +707,6 @@ thead{
   padding:8px 24px;
   font-family:sans-serif;
   font-size:.9rem;
-  box-shadow: 3px 3px 5px rgb(201, 201, 201);
 }
 
 
