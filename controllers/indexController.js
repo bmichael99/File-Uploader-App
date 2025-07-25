@@ -151,7 +151,7 @@ exports.LogOutGet = (req,res,next) => {
 exports.uploadPost = async (req,res,next) => {
     // req.file is the name of your file in the form above, here 'uploaded_file'
     // req.body will hold the text fields, if there were any
-
+    
   const fileBuffer = await fs.readFile(req.file.path);
   const {path, data, error} = await supabase.uploadFile("uploads",req.user.id,fileBuffer,req.file);
   if(error){
@@ -160,7 +160,6 @@ exports.uploadPost = async (req,res,next) => {
   } else {
     if(req.params.folderId){
       const folderId = Number(req.params.folderId);
-      console.log("YOOOOOOOOOOOO WE GOT A FOLDER ID YOOO");
       await db.createFileInFolder(req.file.filename,req.file.originalname,req.file.mimetype,req.file.size,path,folderId,req.user.id)
       res.redirect(`/folder/${folderId}`);
     } else {
