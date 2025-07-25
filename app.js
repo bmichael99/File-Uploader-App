@@ -140,6 +140,13 @@ app.use("/",indexRouter);
  */
 
 app.use((err, req, res, next) => {
+  
+
+  if(err.code == "LIMIT_FILE_SIZE"){
+    req.flash('error', 'File must be 5MB or smaller.');
+    return res.redirect("/files");
+  }
+
   console.error(err); // Log unexpected errors
   res.redirect("/");
   //res.status(500).json({ message: 'Something went wrong' });
