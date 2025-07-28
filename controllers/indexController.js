@@ -148,10 +148,17 @@ exports.LogOutGet = (req,res,next) => {
   });
 };
 
-exports.uploadPost = async (req,res,next) => {
+exports.uploadPost = asyncHandler(async (req,res,next) => {
     // req.file is the name of your file in the form above, here 'uploaded_file'
     // req.body will hold the text fields, if there were any
-    
+
+  const fileCount = await db.getFileCountByUserId(req.user.id);
+  if(fileCount >= 10){
+    req.flash('error', 'File limit reached: 10 files')
+    return res.redirect("/files");
+  }
+  
+
   const fileBuffer = await fs.readFile(req.file.path);
   const {path, data, error} = await supabase.uploadFile("uploads",req.user.id,fileBuffer,req.file);
   if(error){
@@ -169,7 +176,7 @@ exports.uploadPost = async (req,res,next) => {
   }
 
   await fs.unlink(req.file.path);
-};
+});
 
 exports.downloadFile = async (req,res) => {
   const file = await db.getFilebyFileId(req.params.fileId);
@@ -265,6 +272,12 @@ exports.getUserFolders = (req,res) => {
 };
 
 exports.CreateFolderPost = [validateFolder, async(req,res) => {
+  const folderCount = await db.getFolderCountByUserId(req.user.id);
+  if(folderCount >= 10){
+    req.flash('error', 'Folder limit reached: 10 folders')
+    return res.redirect("/files");
+  }
+
   const errors = validationResult(req);
   const errorMessages = errors.array().map(err => err.msg);
     if (!errors.isEmpty()) {
@@ -296,25 +309,33 @@ exports.deleteFile = async (req,res) => {
       await db.deleteFileById(req.params.fileId);
     }
   }else{
-    res.sendStatus(401);
+    res.sendStatus(401).redirect("/");
   }
-    if(req.params.folderId){
-      res.redirect(`/folder/${req.params.folderId}`);
-    } else {
-      res.redirect("/files");
-    }
+
+  if(req.params.folderId){
+    res.redirect(`/folder/${req.params.folderId}`);
+  } else {
+    res.redirect("/files");
+  }
 }
 
 exports.deleteFolder = async (req,res) => {
-  const folder = await db.getFolderbyFolderId(req.params.folderId);
+  const folder = await db.getFolderWithFilesByFolderId(req.params.folderId);
+  const files = folder.files;
 
-  if(folder.userId === req.user.id){
-    await db.deleteFolderById(req.params.folderId);
-  }else{
-    res.sendStatus(401);
+  if(folder.userId !== req.user.id){
+    return res.sendStatus(401).redirect("/");
   }
 
-  res.redirect("/");
+  files.forEach(async file => {
+    const {data, error} = await supabase.deleteFile("uploads", file.url);
+    if(error){
+      console.error(error);
+    }
+  })
+  
+  await db.deleteFolderById(req.params.folderId);
+  res.redirect("/files");
 }
 exports.showFileDashboard = async (req,res) => {
 
