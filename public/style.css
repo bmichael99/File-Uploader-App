@@ -392,6 +392,28 @@ button{
 
 }
 
+@media(max-width: 639px){
+  .folder-view-header{
+    flex-direction: column;
+    gap:1rem;
+    align-items: flex-start;
+  }
+
+  .file-dashboard-header-buttons, .file-dashboard-header-buttons button{
+    display: flex;
+    flex-direction:column;
+    gap: 1rem;
+    justify-content: center;
+    width:100%;
+  }
+
+  .folder-header{
+    width:100%;
+    justify-content: center;
+  }
+  
+}
+
 .folder-view-header a{
   display:flex;
   align-items: center;
