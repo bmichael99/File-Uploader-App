@@ -1,9 +1,11 @@
-<% if (locals.errors) { %>
-  <% locals.errors.forEach(error => { %>
-    <p class = "error"><%= error %></p>
-  <% }) %>
-<% } %>
+<div class="errors">
+  <% if (locals.errors) { %>
+    <% locals.errors.forEach(error => { %>
+      <p class = "error"><%= error %></p>
+    <% }) %>
+  <% } %>
 
-<% if (locals.error) { %>
-  <p class = "error"><%= error %></p>
-<% } %>
+  <% if (locals.error) { %>
+    <p class = "error"><%= error %></p>
+  <% } %>
+</div>
