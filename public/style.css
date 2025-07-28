@@ -933,6 +933,13 @@ thead{
   background-color:white;
 }
 
+@media(max-width:363px){
+  .hero{
+    padding-top:1rem;
+    padding-bottom:5rem;
+  }
+}
+
 .hero-container{
   max-width: 900px;
   margin: 0 auto;
