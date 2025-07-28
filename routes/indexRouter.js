@@ -6,7 +6,7 @@ const multer  = require('multer')
 const upload = multer({
   dest: './public/data/uploads/', 
   limits: {
-    fileSize: 5120,
+    fileSize: 5120000,
     fields: 1,
     files: 1,
   },
