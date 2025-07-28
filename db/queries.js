@@ -67,6 +67,19 @@ async function getFolderbyFolderId(folderId){
   return folder;
 }
 
+async function getFolderWithFilesByFolderId(folderId){
+  const folder = await prisma.folder.findUnique({
+    where: {
+      id: Number(folderId),
+    },
+    include: {
+      files: true,
+    }
+  });
+
+  return folder;
+}
+
 async function getFilesByUser(userId){
   const files = await prisma.file.findMany({
     where: {
@@ -197,6 +210,32 @@ async function deleteLinkByLinkId(linkId){
   }
 }
 
+async function getFileCountByUserId(userId){
+  try{
+    const fileCount = await prisma.file.count({
+    where: {
+      userId
+    }
+  })
+  return fileCount;
+  } catch(err){
+    throw err;
+  }
+}
+
+async function getFolderCountByUserId(userId){
+  try {
+    const folderCount = await prisma.folder.count({
+      where: {
+        userId
+      }
+    })
+    return folderCount;
+  } catch (err) {
+    throw err;
+  }
+}
+
 
 module.exports = {
   createUser,
@@ -219,4 +258,7 @@ module.exports = {
   getLinkByLinkId,
   getFileWithLinksbyFileId,
   deleteLinkByLinkId,
+  getFileCountByUserId,
+  getFolderCountByUserId,
+  getFolderWithFilesByFolderId,
 };
