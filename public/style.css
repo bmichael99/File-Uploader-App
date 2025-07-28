@@ -143,10 +143,18 @@ li{
   background-color: HSL(222.2 47.4% 20.2%);
 }
 
-.log-in-button{
+
+
+.log-in-button, .log-in-button-logged-in{
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-size:0.9rem;
   font-weight:500;
+}
+
+@media(max-width:373px){
+  .log-in-button{
+    display:none;
+  }
 }
 
 
@@ -161,6 +169,7 @@ li{
   align-items: center;
   font-family:sans-serif;
   letter-spacing: 0.01em;
+  padding: 0 1rem;
 }
 
 .login-container label{
@@ -215,6 +224,14 @@ li{
   padding:24px 48px;
   background-color:white;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+@media(max-width: 375px){
+  .login-box{
+    min-width:0px;
+    padding:12px 24px;
+    flex:1;
+  }
 }
 
 .login-box h3{
@@ -284,6 +301,17 @@ button{
 .error{
   padding-top:0px;
   color:red;
+  font-size:1rem;
+  word-break: break-word;
+  text-align:left;
+  padding-bottom:8px;
+  font-weight:500;
+  font-family:system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.good-error{
+  padding-top:0px;
+  color:rgb(0, 170, 0);
   font-size:1rem;
   word-break: break-word;
   text-align:left;
@@ -386,19 +414,34 @@ button{
   display:none;
 }
 
-.file-dashboard-header button, .folder-view-header button{
+.file-dashboard-header button, .folder-view-header button:not(.gray-button2){
   border:none;
   cursor: pointer;
   background-color:var(--blue);
   color:#F9FaF8;
   border-radius: 8px;
   padding:8px 24px;
-  
 }
 
-.file-dashboard-header button:hover{
+
+.file-dashboard-header button, .folder-view-header button:hover:not(.gray-button2){
   background-color: var(--blue-hover);
 }
+
+.gray-button2{
+  border:none;
+  cursor: pointer;
+  background-color: rgb(151, 151, 151);
+  color:#F9FaF8;
+  border-radius: 8px;
+  padding:8px 24px;
+}
+
+.gray-button2:hover{
+  background-color: rgb(122, 122, 122);
+}
+
+
 
 .table-row-name{
   display:flex;
@@ -639,6 +682,95 @@ thead{
   height:20px;
 }
 
+.button-copy-svg{
+  border:none;
+  background-color: white;
+  padding:0;
+  margin:0;
+  color: var(--dark-blue);
+}
+
+.button-copy-svg:hover{
+  transform:scale(1.1);
+}
+
+.copy-svg{
+  width:30px;
+  height:30px;
+}
+
+.button-delete-svg{
+  border:none;
+  background-color: white;
+  color: rgb(255, 65, 65);
+  padding:0;
+  margin:0;
+}
+
+.button-delete-svg:hover{
+  transform:scale(1.1);
+}
+
+.delete-svg{
+  width:30px;
+  height:30px;
+}
+
+.copied-svg{
+  width:30px;
+  height:30px;
+  color:rgb(0, 189, 0);
+  display:none;
+}
+
+@media (min-width: 640px){
+  .delete-svg{
+    display:none;
+  }
+  .button-delete-svg{
+    display:none;
+  }
+  .copy-svg{
+    display:none;
+  }
+  .button-copy-svg{
+    display:none !important;
+  }
+  .copied-svg{
+    display:none !important;
+  }
+}
+
+@media (max-width: 639px){
+  .file-info-card-body-link-group .darker-blue-button{
+    display:none;
+  }
+
+  .file-info-card-body-link-group .red-button{
+    display:none;
+  }
+  .copy-button-green{
+    display:none;
+  }
+
+  
+}
+
+@media (max-width: 500px){
+  .copy-input{
+    width:125px;
+  }
+}
+
+@media (max-width: 374px){
+  .copy-input{
+    width:100px;
+  }
+}
+
+
+
+
 
 
 
@@ -709,6 +841,14 @@ thead{
   font-size:.9rem;
 }
 
+.gray-button:hover{
+  background-color: rgb(122, 122, 122);
+}
+
+.button-shadow{
+  box-shadow: 3px 3px 5px rgb(201, 201, 201);
+}
+
 
 
 .blue-button:hover{
@@ -724,7 +864,6 @@ thead{
   padding:8px 24px;
   font-family:sans-serif;
   font-size:.9rem;
-  box-shadow: 3px 3px 5px rgb(201, 201, 201);
 }
 
 .red-button:hover{
@@ -860,6 +999,24 @@ thead{
   grid-template-columns: repeat(auto-fit, minmax(400px,1fr));
   grid-auto-rows: auto;
   gap:32px;
+}
+
+@media (max-width: 425px){
+  .features-cards{
+    grid-template-columns: repeat(auto-fit, minmax(375px,1fr));
+  }
+}
+
+@media (max-width: 400px){
+  .features-cards{
+    grid-template-columns: repeat(auto-fit, minmax(350px,1fr));
+  }
+}
+
+@media (max-width: 375px){
+  .features-cards{
+    grid-template-columns: repeat(auto-fit, minmax(330px,1fr));
+  }
 }
 
 .features-card svg{
