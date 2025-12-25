@@ -186,7 +186,7 @@ exports.downloadFile = async (req,res) => {
 
     if(error){
       res.status(500).json({
-        sucess:false,
+        success:false,
         error: error.message,
       })
     } else {
@@ -199,7 +199,7 @@ exports.downloadFile = async (req,res) => {
     }
   } else{
     res.status(401).json({
-      sucess: false,
+      success: false,
       message: "unauthorized",
     })
   }
@@ -219,7 +219,7 @@ exports.downloadSharedFile = async (req,res) => {
 
   if(error){
     res.status(500).json({
-      sucess:false,
+      success:false,
       error: error.message,
     })
     return res.redirect("/");
