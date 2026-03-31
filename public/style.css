@@ -31,6 +31,11 @@
   --orange: rgb(255, 175, 71);
 }
 
+/* .flex-center{
+  display:flex;
+  justify-content: center;
+} */
+
 main{
   background-color: var(--muted);
 }
@@ -325,6 +330,13 @@ button{
 /* --------------------------------------*/
 /* ------------- TABLE DATA -------------*/
 /* --------------------------------------*/
+.file-dashboard-container{
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  width:100%;
+}
+
 .file-dashboard-header{
   max-width: 1200px;
   width:100%;
@@ -379,6 +391,8 @@ button{
 }
 
 .file-dashboard-table{
+  max-width:1200px;
+  width:100%;
   box-sizing: border-box;
   padding: 0px 8px 0px 8px;
 }
@@ -466,7 +480,12 @@ button{
   background-color: rgb(122, 122, 122);
 }
 
-
+/* .flex-center{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  width:100%;
+} */
 
 .table-row-name{
   display:flex;
@@ -556,6 +575,8 @@ thead{
 }
 
 .file-info-card-container{
+  max-width:600px;
+  width:100%;
   padding: 0px 8px 0px 8px;
 }
 
