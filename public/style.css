@@ -1017,6 +1017,11 @@ thead{
 /* ---------- FEATURES SECTION ----------*/
 /* --------------------------------------*/
 
+.features{
+  display: flex;
+  justify-content: center;
+}
+
 .features-container{
   width:100%;
   max-width: 1200px;
